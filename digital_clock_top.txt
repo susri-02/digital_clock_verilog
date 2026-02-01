@@ -1,0 +1,39 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 01.02.2026 22:10:17
+// Design Name: 
+// Module Name: top_module
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module digital_clock_top (
+    input clk,
+    input reset,
+    output [4:0] hours,
+    output [5:0] minutes,
+    output [5:0] seconds
+);
+    wire clk_1hz;
+    wire sec_tick;
+    wire min_tick;
+
+    clock_divider   u1 (clk, reset, clk_1hz);
+    seconds_counter u2 (clk_1hz, reset, seconds, sec_tick);
+    minutes_counter u3 (clk_1hz, reset, sec_tick, minutes, min_tick);
+    hours_counter   u4 (clk_1hz, reset, min_tick, hours);
+endmodule
+
